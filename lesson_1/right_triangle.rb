@@ -14,7 +14,7 @@ if triangle[2]**2 == triangle[0]**2 + triangle[1]**2 && triangle[0] == triangle[
   puts "Треугольник прямоугольный и равнобедренный"
 elsif triangle[2]**2 == triangle[0]**2 + triangle[1]**2
   puts "Треугольник прямоугольный"
-elsif triangle[0] == triangle[1] && triangle[0] != triangle[2]
+elsif  triangle[0] != triangle[2] && triangle[0] == triangle[1] || triangle[1] == triangle[2]
   puts "Треугольник равнобедренный, но не прямоугольный"
 elsif a == b && b == c
   puts "Треугольник равнобедренный и равносторонний, но не прямоугольный"

@@ -8,9 +8,9 @@ puts "Введите клэфициент c"
 c = gets.chomp.to_f
 
 discriminant = b**2 - (4 * a * c)
-discriminant_sqrt = Math.sqrt(discriminant)
 
 if discriminant > 0
+  discriminant_sqrt = Math.sqrt(discriminant)
   x_1 = (-b + discriminant_sqrt) / (2 * a)
   x_2 = (-b - discriminant_sqrt) / (2 * a)
   puts "Дискриминант = #{discriminant}, x1 = #{x_1}, x2 = #{x_2}"
