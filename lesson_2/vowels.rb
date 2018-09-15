@@ -8,4 +8,8 @@ range_letters.each do |letter|
     letter_position[letter] = i
     i += 1
 end
-puts letter_position
+
+vowels.each do |letter|
+    vowels_position[letter] = letter_position[letter]
+end
+puts vowels_position
