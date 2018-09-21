@@ -1,55 +1,54 @@
 class Station
-  attr_reader :train_list, :train_type, :station_name
-  def initialize (station_name)
+  attr_reader :trains, :station_name
+  def initialize(station_name)
     @station_name = station_name
-    @train_list = []
-    @train_type = {passenger_train: 0, freight_train: 0}
+    @trains = []
   end
 
-  def add_train (train)
-    self.train_list << train.train_number
-    train.train_type == "passenger train" ? self.train_type[:passenger_train] += 1 : self.train_type[:freight_train] += 1
+  def add_train(train)
+    self.trains << [train.train_number, train.train_type]
   end
 
-  def send_train (train)
-    self.train_list.delete(train.train_number)
-    train.train_type == "passenger train" ? self.train_type[:passenger_train] -= 1 : self.train_type[:freight_train] -= 1
+  def send_train(train)
+    self.trains.delete([train.train_number, train.train_type])
+  end
+
+  def train_types(type)
+    trains.select { |train| train if train[1] == type }
   end
 end
 
 class Route
-  attr_reader :station_list
-  def initialize (station_first, station_last)
-    @station_first = station_first.station_name
-    @station_last = station_last.station_name
-    @station_list = [@station_first, @station_last]
+  attr_reader :stations
+  def initialize(station_first, station_last)
+    @stations = [station_first.station_name, station_last.station_name]
   end
 
-  def add_station (station)
-    self.station_list.insert(-2, station.station_name)
+  def add_station(station)
+    self.stations.insert(-2, station.station_name)
   end
 
-  def remove_station (station)
-    self.station_list.delete(station.station_name)
+  def remove_station(station)
+    self.stations.delete(station.station_name)
   end
 end
 
 class Train
   attr_reader :train_number, :train_type
-  attr_accessor :current_speed, :carriage_amount, :train_route, :current_position
-  def initialize (train_number, train_type, carriage_amount)
+  attr_accessor :current_speed, :carriage_amount, :train_route, :station_index
+  def initialize(train_number, train_type, carriage_amount)
     @train_number = train_number
     @train_type = train_type
     @carriage_amount = carriage_amount
     @current_speed = 0
-  
+    @station_index = 0
   end
 
-  def acceleration (speed_up)
+  def acceleration(speed_up)
     self.current_speed += speed_up
   end
 
-  def braking (speed_down)
+  def braking(speed_down)
     current_speed - speed_down < 0 ? self.current_speed = 0 : self.current_speed -= speed_down 
   end
 
@@ -58,29 +57,40 @@ class Train
   end
 
   def carriage_decrease
-    carriage_amount == 0 ? "You have no carriage" : current_speed == 0 ? self.carriage_amount -= 1 : "The train is moving. Please, stop the train."
+    if current_speed != 0
+      "The train is moving. Please, stop the train."
+    elsif carriage_amount == 0
+      "You have no carriage"
+    else
+      self.carriage_amount -= 1
+    end
   end
 
-  def route (route)
-    self.train_route = route.station_list
-    self.current_position = train_route.first
+  def route(route)
+    self.train_route = route.stations
   end
 
   def drive_forward
-    current_position != train_route.last ? self.current_position = train_route[train_route.index(current_position) + 1] : "The train stop at the last station."
+    return "The train stop at the last station." if station_index == train_route.length - 1
+    self.station_index += 1
   end
 
   def drive_back
-    current_position != train_route.first ? self.current_position = train_route[train_route.index(current_position) - 1] : "The train stop at the first station."
+    return "The train stop at the first station." if station_index == 0
+    self.station_index -= 1
   end
 
-  def position
-    if current_position == train_route.last
-      position = [train_route[train_route.index(current_position) - 1], current_position, nil]
-    elsif current_position == train_route.first
-      position = [nil ,current_position, train_route[train_route.index(current_position) + 1]]
-    else
-      position = [train_route[train_route.index(@current_position) - 1], current_position, train_route[train_route.index(current_position) + 1]]
-    end
+  def current_station
+    train_route[station_index]
+  end
+
+  def previous_station
+    return "The train stop at the first station." if station_index == 0
+    train_route[station_index - 1]
+  end
+
+  def next_station
+    return "The train stop at the last station." if station_index == train_route.length - 1
+    train_route[station_index + 1]
   end
 end
