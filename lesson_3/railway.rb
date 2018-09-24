@@ -14,7 +14,7 @@ class Station
   end
 
   def train_types(type)
-    trains.select { |train| train if train.type == type }
+    trains.select { |train| train.type == type }
   end
 end
 
@@ -68,29 +68,34 @@ class Train
 
   def set_route(route)
     self.route = route
+    self.route.stations[0].add_train(self)
   end
 
   def drive_forward
+    route.stations[station_index].send_train(self)
     return "The train stop at the last station." if station_index == route.stations.length - 1
     self.station_index += 1
+    route.stations[station_index].add_train(self)
   end
 
   def drive_back
+    route.stations[station_index].send_train(self)
     return "The train stop at the first station." if station_index == 0
     self.station_index -= 1
+    route.stations[station_index].add_train(self)
   end
 
   def current_station
-    route.stations[station_index].name
+    route.stations[station_index]
   end
 
   def previous_station
     return "The train stop at the first station." if station_index == 0
-    route.stations[station_index - 1].name
+    route.stations[station_index - 1]
   end
 
   def next_station
     return "The train stop at the last station." if station_index == route.stations.length - 1
-    route.stations[station_index + 1].name
+    route.stations[station_index + 1]
   end
 end
