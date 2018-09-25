@@ -1,0 +1,6 @@
+require_relatibe 'station'
+require_relatibe 'route'
+require_relatibe 'train'
+require_relatibe 'passenger_train'
+require_relatibe 'cargo_train'
+require_relatibe 'coach.rb'
