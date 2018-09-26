@@ -20,17 +20,18 @@ class Interface
     puts "Нажмите 6 для управления маршрутом"
     answer = gets.chomp
 
-    if answer == "1"
+    case answer
+    when "1"
       create_station
-    elsif answer == '2'
+    when "2"
 
-    elsif answer == '3'
+    when "3"
+      create_train
+    when "4"
 
-    elsif answer == '4'
+    when "5"
 
-    elsif answer == '5'
-
-    elsif answer == '6'
+    when "6"
 
     else
       puts "Выбирите корректный пункт из меню"
@@ -43,6 +44,12 @@ class Interface
     answer = gets.chomp
     i = stations.length
     self.stations[i] = Station.new(answer)
+    puts "Вы успешно добавили станцию #{stations[i].name}"
+    main_menu
+  end
+
+  def create_train
+    puts 
   end
 end
 
