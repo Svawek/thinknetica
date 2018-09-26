@@ -1,6 +1,13 @@
 class PassengerCarriage
+  attr_reader :type
+  
   private
-  def type
-    @type = :passenger
+  attr_writer :type
+  def carriage_type
+    :passenger
+  end
+
+  def set_type
+    self.type = carriage_type
   end
 end

@@ -1,11 +1,10 @@
 class Train
-  attr_reader :number, :current_speed, :carriage_amount, :route, :station_index
-  def initialize(number, type, carriage_amount)
+  attr_reader :number, :current_speed, :route, :station_index, :carriages
+  def initialize(number)
     @number = number
-    @type = type # УБРАТЬ В ПОЕЗДА ТИПЫ!!!
-    @carriage_amount = carriage_amount
     @current_speed = 0
     @station_index = 0
+    @carriages = []
   end
 
   def acceleration(speed_up)
@@ -16,17 +15,22 @@ class Train
     current_speed - speed_down < 0 ? self.current_speed = 0 : self.current_speed -= speed_down 
   end
 
-  def carriage_increase
-    current_speed == 0 ? self.carriage_amount += 1 : "The train is moving. Please, stop the train."
+  def carriage_increase(carriage)
+    return "The train is moving. Please, stop the train." if current_speed != 0
+    if carriage.type == train.type
+      self.carriages << carriage
+    else
+      "Type of carriage and train are different"
+    end
   end
 
-  def carriage_decrease
+  def carriage_decrease(carriage)
     if current_speed != 0
       "The train is moving. Please, stop the train."
-    elsif carriage_amount == 0
-      "You have no carriage"
+    elsif carriages.include?(carriage)
+      self.carriages.delete(carriage)
     else
-      self.carriage_amount -= 1
+      "You have no such carriage"
     end
   end
 
@@ -65,5 +69,5 @@ class Train
 
   protected
   # защищаем от изменения параметров на прямую
-  attr_writer :current_speed, :carriage_amount, :route, :station_index
+  attr_writer :current_speed, :route, :station_index
 end

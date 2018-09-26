@@ -1,6 +1,13 @@
 class CargoCarriage
+  attr_reader :type
+  
   private
-  def type
-    @type = :cargo
+  attr_writer :type
+  def carriage_type
+    :cargo
+  end
+
+  def set_type
+    self.type = carriage_type
   end
 end
