@@ -7,9 +7,12 @@ require_relative 'passenger_carriage'
 require_relative 'cargo_carriage'
 
 class Interface
-  attr_accessor :stations
+  attr_accessor :stations, :trains, :carriages, :routes
   def initialize
     @stations = []
+    @trains = []
+    @carriages = []
+    @routes = []
   end
   def main_menu
     puts "Нажмите 1 для создания станции"
@@ -30,7 +33,7 @@ class Interface
     when "4"
 
     when "5"
-
+      create_route
     when "6"
 
     else
@@ -42,14 +45,70 @@ class Interface
   def create_station
     puts "Введите название станции"
     answer = gets.chomp
-    i = stations.length
-    self.stations[i] = Station.new(answer)
-    puts "Вы успешно добавили станцию #{stations[i].name}"
+    self.stations << Station.new(answer)
+    puts "Вы успешно добавили станцию #{stations.last.name}"
     main_menu
   end
 
   def create_train
-    puts 
+    puts "Нажмите 1 для создания пассажирского поезда"
+    puts "Нажмите 2 для создания грузового поезда"
+    puts "Нажмите 3 для создания пассажирского вагона"
+    puts "Нажмите 4 для создания грузового вагона"
+    puts "Нажмите 0 для возврата в главное меню"
+    answer = gets.chomp
+    case answer
+    when "1"
+      add_train(PassengerTrain)
+    when "2"
+      add_train(CargoTrain)
+    when "3"
+      add_carriage(PassengerCarriage)
+    when "4"
+      add_carriage(CargoCarriage)
+    when "0"
+      main_menu
+    else
+      puts "Выбирите корректный пункт из меню"
+      create_train
+    end
+  end
+
+  def create_route
+    add_route
+  end
+
+
+  def add_train(type)
+    puts "Введите номер поезда"
+    train_number = gets.chomp
+    self.trains << type.new(train_number)
+    puts "Вы успешно добавили поезд №#{trains.last.number}"
+    create_train
+  end
+
+  def add_carriage(type)
+    puts "Введите номер вагона"
+    carriage_number = gets.chomp
+    self.carriages << type.new(carriage_number)
+    puts "Вы успешно добавили вагон №#{carriages.last.number}"
+    create_train
+  end
+
+  def add_route
+    puts "Введите станцию начала маршрута"
+    route_begin = gets.chomp
+    puts "Введите станцию конца маршрута"
+    route_end = gets.chomp
+    st1 = stations.select {|station| station.name == route_begin}
+    st2 = stations.select {|station| station.name == route_end}
+    if st1 == nil || st2 == nil
+      "Введена не правильная станция"
+      add_route
+    end
+    self.routes << Route.new(st1, st2)
+    puts "Вы создали маршрут #{routes.last.stations.first.name} - {routes.last.stations.last.name}"
+    main_menu
   end
 end
 
