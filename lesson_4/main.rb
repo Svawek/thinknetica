@@ -6,6 +6,7 @@ require_relative 'cargo_train'
 require_relative 'passenger_carriage'
 require_relative 'cargo_carriage'
 
+
 class Interface
   attr_accessor :stations, :trains, :carriages, :routes
   def initialize
@@ -107,7 +108,7 @@ class Interface
       add_route
     end
     self.routes << Route.new(st1, st2)
-    puts "Вы создали маршрут #{routes.last.stations.first.name} - {routes.last.stations.last.name}"
+    puts "Вы создали маршрут #{routes[-1].stations[-1].name}"
     main_menu
   end
 end
