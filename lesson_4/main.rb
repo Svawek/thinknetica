@@ -5,6 +5,7 @@ require_relative 'passenger_train'
 require_relative 'cargo_train'
 require_relative 'passenger_carriage'
 require_relative 'cargo_carriage'
+require 'byebug'
 
 
 class Interface
@@ -101,8 +102,9 @@ class Interface
     route_begin = gets.chomp
     puts "Введите станцию конца маршрута"
     route_end = gets.chomp
-    st1 = stations.select {|station| station.name == route_begin}
-    st2 = stations.select {|station| station.name == route_end}
+    st1 = stations.each {|station| station if station.name == route_begin}
+    byebug
+    st2 = stations.each {|station| station if station.name == route_end}
     if st1 == nil || st2 == nil
       "Введена не правильная станция"
       add_route
