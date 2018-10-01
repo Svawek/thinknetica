@@ -39,7 +39,7 @@ class Interface
       when "5"
         create_route
       when "6"
-
+        manage_route
       when "0"
         exit
       else
@@ -81,7 +81,7 @@ class Interface
 
   def manage_train
     trains.each { |train| 
-      puts "Что бы выбрать поездд №#{train.number}, нажмите #{trains.index(train)}"
+      puts "Что бы выбрать поезд №#{train.number}, нажмите #{trains.index(train)}"
     }
     i = gets.chomp.to_i
 
@@ -100,15 +100,55 @@ class Interface
       }
       carriage_i = gets.chomp.to_i
       trains[i].carriage_increase(carriages[carriage_i])
-      byebug
     when "2"
-      
+      carriages.each { |carriage| 
+        puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{carriages.index(carriage)}"
+      }
+      carriage_i = gets.chomp.to_i
+      trains[i].carriage_decrease(carriages[carriage_i])
     when "3"
-      
+      routes.each { |route|
+        puts "Что бы выбрать маршрут #{route.stations.first.name} - #{route.stations.last.name}, нажмите #{routes.index(route)}"
+      }
+      route_i = gets.chomp.to_i
+      trains[i].set_route(routes[route_i])
     when "4"
-
+      trains[i].drive_forward
     when "5"
-      
+      trains[i].drive_back
+    else
+      puts "Выбирите корректный пункт из меню"
+    end
+  end
+
+  def manage_route
+    routes.each { |route| 
+      puts "Что бы выбрать маршрут #{route.stations.first.name} - #{route.stations.last.name}, нажмите #{routes.index(route)}"
+    }
+    i = gets.chomp.to_i
+
+    puts "Нажмите 1, что бы посмотреть все станции маршрута"
+    puts "Нажмите 2 , что бы добавить станцию в маршрут"
+    puts "Нажмите 3, что бы удалить станцию с маршрута"
+
+    answer = gets.chomp
+
+    case answer
+    when "1"
+      puts "Все станции маршрута:"
+      routes[i].each { |station| station.name }
+    when "2"
+      stations.each { |station|
+        puts "Нажмите #{stations.index(station)}, что бы добавить станцию #{station.name} в маршрут"
+      }
+      station_i = gets.chomp.to_i
+      routes[i].add_station(stations[station_i])
+    when "3"
+      stations.each { |station|
+        puts "Нажмите #{stations.index(station)}, что бы удалить станцию #{station.name} в маршрут"
+      }
+      station_i = gets.chomp.to_i
+      routes[i].remove_station(stations[station_i])
     else
       puts "Выбирите корректный пункт из меню"
     end
