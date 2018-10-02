@@ -6,7 +6,7 @@ class PassengerTrain < Train
   end
 
   private
-  attr_writer :type
+  #класс не наследуется. определяем константу в нем
   def train_type
     :passenger
   end

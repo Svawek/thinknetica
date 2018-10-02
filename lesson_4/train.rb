@@ -17,21 +17,21 @@ class Train
   end
 
   def carriage_increase(carriage)
-    return "The train is moving. Please, stop the train." if current_speed != 0
+    return puts "The train is moving. Please, stop the train." if current_speed != 0
     if carriage.type == type
       self.carriages << carriage
     else
-      "Type of carriage and train are different"
+      puts "Type of carriage and train are different"
     end
   end
 
   def carriage_decrease(carriage)
     if current_speed != 0
-      "The train is moving. Please, stop the train."
+      puts "The train is moving. Please, stop the train."
     elsif carriages.include?(carriage)
       self.carriages.delete(carriage)
     else
-      "You have no such carriage"
+      puts "You have no such carriage"
     end
   end
 
@@ -42,14 +42,14 @@ class Train
 
   def drive_forward
     current_station.send_train(self)
-    return "The train stop at the last station." if station_index == route.stations.length - 1
+    return puts "The train stop at the last station." if station_index == route.stations.length - 1
     self.station_index += 1
     current_station.add_train(self)
   end
 
   def drive_back
     current_station.send_train(self)
-    return "The train stop at the first station." if station_index == 0
+    return puts "The train stop at the first station." if station_index == 0
     self.station_index -= 1
     current_station.add_train(self)
   end
@@ -59,16 +59,16 @@ class Train
   end
 
   def previous_station
-    return "The train stop at the first station." if station_index == 0
+    return puts "The train stop at the first station." if station_index == 0
     route.stations[station_index - 1]
   end
 
   def next_station
-    return "The train stop at the last station." if station_index == route.stations.length - 1
+    return puts "The train stop at the last station." if station_index == route.stations.length - 1
     route.stations[station_index + 1]
   end
 
   protected
-  # защищаем от изменения параметров на прямую
+  # защищаем от изменения параметров на прямую. класс наследуется
   attr_writer :current_speed, :route, :station_index
 end

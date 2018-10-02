@@ -6,7 +6,7 @@ class PassengerCarriage
   end
   
   private
-  attr_writer :type
+  #класс не наследуется. определяем константу в нем
   def carriage_type
     :passenger
   end

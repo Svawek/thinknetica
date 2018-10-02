@@ -6,7 +6,7 @@ class CargoTrain < Train
   end
 
   private
-
+  #класс не наследуется. определяем константу в нем
   def train_type
     :cargo
   end

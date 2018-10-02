@@ -5,11 +5,10 @@ require_relative 'passenger_train'
 require_relative 'cargo_train'
 require_relative 'passenger_carriage'
 require_relative 'cargo_carriage'
-require 'byebug'
 
 
 class Interface
-  attr_accessor :stations, :trains, :carriages, :routes
+  attr_reader :stations, :trains, :carriages, :routes
   def initialize
     @stations = []
     @trains = []
@@ -19,6 +18,7 @@ class Interface
   def main_menu
     loop do
       puts "Нажмите 1 для создания станции"
+      puts "Нажмите 2 для просмотра информации по станции"
       puts "Нажмите 3 для создания поезда и вагонов"
       puts "Нажмите 4 для управленя поездом и вагонами"
       puts "Нажмите 5 для создания маршрута"
@@ -32,6 +32,8 @@ class Interface
       case answer
       when "1"
         create_station
+      when "2"
+        station_information
       when "3"
         create_train
       when "4"
@@ -136,7 +138,7 @@ class Interface
     case answer
     when "1"
       puts "Все станции маршрута:"
-      routes[i].each { |station| station.name }
+      routes[i].stations.each { |station| puts station.name }
     when "2"
       stations.each { |station|
         puts "Нажмите #{stations.index(station)}, что бы добавить станцию #{station.name} в маршрут"
@@ -154,7 +156,18 @@ class Interface
     end
   end
 
+  def station_information
+    stations.each { |station|
+      puts "Нажмите #{stations.index(station)}, что бы посмотреть информацию по станции #{station.name} в маршрут"
+    }
+    i = gets.chomp.to_i
+    puts "На станции стоят следующие поезда:"
+    stations[i].trains.each { |train| puts train.number}
+  end
 
+  private
+  #private выбран, что уберечь основные методы создания от умышленного изменения. И данный класс не наследуется
+  attr_writer :stations, :trains, :carriages, :routes
   def create_train!(type)
     puts "Введите номер поезда"
     train_number = gets.chomp
