@@ -16,7 +16,7 @@ class Train
     current_speed - speed_down < 0 ? self.current_speed = 0 : self.current_speed -= speed_down 
   end
 
-  def carriage_increase(carriage)
+  def carriage_join(carriage)
     return puts "The train is moving. Please, stop the train." if current_speed != 0
     if carriage.type == type
       self.carriages << carriage
@@ -25,7 +25,7 @@ class Train
     end
   end
 
-  def carriage_decrease(carriage)
+  def carriage_disconnect(carriage)
     if current_speed != 0
       puts "The train is moving. Please, stop the train."
     elsif carriages.include?(carriage)

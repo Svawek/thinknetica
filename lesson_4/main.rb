@@ -19,10 +19,11 @@ class Interface
     loop do
       puts "Нажмите 1 для создания станции"
       puts "Нажмите 2 для просмотра информации по станции"
-      puts "Нажмите 3 для создания поезда и вагонов"
-      puts "Нажмите 4 для управленя поездом и вагонами"
-      puts "Нажмите 5 для создания маршрута"
-      puts "Нажмите 6 для управления маршрутом"
+      puts "Нажмите 3 для создания поезда"
+      puts "Нажмите 4 для создания вагона"
+      puts "Нажмите 5 для управленя поездом и вагонами"
+      puts "Нажмите 6 для создания маршрута"
+      puts "Нажмите 7 для управления маршрутом"
       puts "Нажмите 0 для выхода"
 
     
@@ -37,10 +38,12 @@ class Interface
       when "3"
         create_train
       when "4"
-        manage_train
+        create_carriage
       when "5"
-        create_route
+        manage_train
       when "6"
+        create_route
+      when "7"
         manage_route
       when "0"
         exit
@@ -60,18 +63,28 @@ class Interface
   def create_train
     puts "Нажмите 1 для создания пассажирского поезда"
     puts "Нажмите 2 для создания грузового поезда"
-    puts "Нажмите 3 для создания пассажирского вагона"
-    puts "Нажмите 4 для создания грузового вагона"
+    
     answer = gets.chomp
     case answer
     when "1"
-      create_train!(PassengerTrain)
+      create_train!("PassengerTrain")
     when "2"
-      create_train!(CargoTrain)
-    when "3"
-      create_carriage(PassengerCarriage)
-    when "4"
-      create_carriage(CargoCarriage)
+      create_train!("CargoTrain")
+    else
+      puts "Выбирите корректный пункт из меню"
+    end
+  end
+
+  def create_carriage
+    puts "Нажмите 1 для создания пассажирского вагона"
+    puts "Нажмите 2 для создания грузового вагона"
+
+    answer = gets.chomp
+    case answer
+    when "1"
+      create_carriage!("PassengerCarriage")
+    when "2"
+      create_carriage!("CargoCarriage")
     else
       puts "Выбирите корректный пункт из меню"
     end
@@ -101,13 +114,13 @@ class Interface
         puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{carriages.index(carriage)}"
       }
       carriage_i = gets.chomp.to_i
-      trains[i].carriage_increase(carriages[carriage_i])
+      trains[i].carriage_join(carriages[carriage_i])
     when "2"
       carriages.each { |carriage| 
         puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{carriages.index(carriage)}"
       }
       carriage_i = gets.chomp.to_i
-      trains[i].carriage_decrease(carriages[carriage_i])
+      trains[i].carriage_disconnect(carriages[carriage_i])
     when "3"
       routes.each { |route|
         puts "Что бы выбрать маршрут #{route.stations.first.name} - #{route.stations.last.name}, нажмите #{routes.index(route)}"
@@ -171,14 +184,22 @@ class Interface
   def create_train!(type)
     puts "Введите номер поезда"
     train_number = gets.chomp
-    self.trains << type.new(train_number)
+    if type == "PassengerTrain"
+      self.trains << PassengerTrain.new(train_number)
+    else
+      self.trains << CargoTrain.new(train_number)
+    end
     puts "Вы успешно добавили поезд №#{trains.last.number}"
   end
 
-  def create_carriage(type)
+  def create_carriage!(type)
     puts "Введите номер вагона"
     carriage_number = gets.chomp
-    self.carriages << type.new(carriage_number)
+    if type == "PassengerCarriage"
+      self.carriages << PassengerCarriage.new(carriage_number)
+    else
+      self.carriages << CargoCarriage.new(carriage_number)
+    end
     puts "Вы успешно добавили вагон №#{carriages.last.number}"
   end
 
@@ -193,11 +214,6 @@ class Interface
     st2_index = gets.chomp.to_i
     self.routes << Route.new(stations[st1_index], stations[st2_index])
     puts "Вы создали маршрут #{routes[-1].stations.first.name} - #{routes[-1].stations.last.name}"
-  end
-
-  def add_carriage
-    
-
   end
 end
 
