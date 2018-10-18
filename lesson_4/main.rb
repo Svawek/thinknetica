@@ -56,8 +56,12 @@ class Interface
   def create_station
     puts "Введите название станции"
     answer = gets.chomp
-    self.stations << Station.new(answer)
-    puts "Вы успешно добавили станцию #{stations.last.name}"
+    if answer == ""
+      return no_name
+    else
+      self.stations << Station.new(answer)
+      puts "Вы успешно добавили станцию #{stations.last.name}"
+    end
   end
 
   def create_train
@@ -178,29 +182,45 @@ class Interface
     stations[i].trains.each { |train| puts train.number}
   end
 
+  def no_name
+    puts "Укажите название"
+  end
+
+  def no_number
+    puts "Укажите номер"
+  end
+
   private
   #private выбран, что уберечь основные методы создания от умышленного изменения. И данный класс не наследуется
   attr_writer :stations, :trains, :carriages, :routes
   def create_train!(type)
     puts "Введите номер поезда"
     train_number = gets.chomp
-    if type == "PassengerTrain"
-      self.trains << PassengerTrain.new(train_number)
+    if train_number == ""
+      return no_number
     else
-      self.trains << CargoTrain.new(train_number)
+      if type == "PassengerTrain"
+        self.trains << PassengerTrain.new(train_number)
+      else
+        self.trains << CargoTrain.new(train_number)
+      end
+      puts "Вы успешно добавили поезд №#{trains.last.number}"
     end
-    puts "Вы успешно добавили поезд №#{trains.last.number}"
   end
 
   def create_carriage!(type)
     puts "Введите номер вагона"
     carriage_number = gets.chomp
-    if type == "PassengerCarriage"
-      self.carriages << PassengerCarriage.new(carriage_number)
+    if carriage_number == ""
+      return no_number
     else
-      self.carriages << CargoCarriage.new(carriage_number)
+      if type == "PassengerCarriage"
+        self.carriages << PassengerCarriage.new(carriage_number)
+      else
+        self.carriages << CargoCarriage.new(carriage_number)
+      end
+      puts "Вы успешно добавили вагон №#{carriages.last.number}"
     end
-    puts "Вы успешно добавили вагон №#{carriages.last.number}"
   end
 
   def create_route!
