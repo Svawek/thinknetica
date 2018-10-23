@@ -1,20 +1,14 @@
 class Train
   include Manufacturer
-  @@all_trains = []
+  include InstanceCounter
+  @@all_trains = {}
 
   def self.all
     @@all_trains
   end
 
   def self.find(num)
-    train = @@all_trains.select { |train|
-      train[:number] == num
-    }
-    if train == []
-      nil
-    else
-      train[0]
-    end
+    @@all_trains[num]
   end
 
   attr_reader :number, :current_speed, :route, :station_index, :carriages
@@ -24,7 +18,8 @@ class Train
     @station_index = 0
     @carriages = []
     @type
-    @@all_trains << {number: @number, speed: @current_speed, station_index: @station_index, carriage: @carriage, type: @type}
+    @@all_trains[number] = self
+    register_instance
   end
 
   def acceleration(speed_up)

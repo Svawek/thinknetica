@@ -1,3 +1,4 @@
+require_relative 'instance_counter.rb'
 require_relative 'manufacturer.rb'
 require_relative 'station'
 require_relative 'route'
@@ -7,9 +8,7 @@ require_relative 'cargo_train'
 require_relative 'passenger_carriage'
 require_relative 'cargo_carriage'
 
-require 'byebug'
 
-byebug
 class Interface
   attr_reader :stations, :trains, :carriages, :routes
   def initialize
