@@ -48,7 +48,7 @@ class Interface
       when "7"
         manage_route
       when "0"
-        exit
+        break
       else
         puts "Выбирите корректный пункт из меню"
       end

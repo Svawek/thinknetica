@@ -7,8 +7,8 @@ class Train
     @@all_trains
   end
 
-  def self.find(num)
-    @@all_trains[num]
+  def self.find(number)
+    @@all_trains[number]
   end
 
   attr_reader :number, :current_speed, :route, :station_index, :carriages
@@ -17,7 +17,6 @@ class Train
     @current_speed = 0
     @station_index = 0
     @carriages = []
-    @type
     @@all_trains[number] = self
     register_instance
   end
@@ -27,7 +26,7 @@ class Train
   end
 
   def braking(speed_down)
-    current_speed - speed_down < 0 ? self.current_speed = 0 : self.current_speed -= speed_down 
+    self.current_speed - speed_down < 0 ? self.current_speed = 0 : self.current_speed -= speed_down 
   end
 
   def carriage_join(carriage)
@@ -51,21 +50,21 @@ class Train
 
   def set_route(route)
     self.route = route
-    self.route.stations[0].add_train(self)
+    self.route.stations[0].arrive_train(self)
   end
 
   def drive_forward
     current_station.send_train(self)
     return puts "The train stop at the last station." if station_index == route.stations.length - 1
     self.station_index += 1
-    current_station.add_train(self)
+    current_station.arrive_train(self)
   end
 
   def drive_back
     current_station.send_train(self)
     return puts "The train stop at the first station." if station_index == 0
     self.station_index -= 1
-    current_station.add_train(self)
+    current_station.arrive_train(self)
   end
 
   def current_station

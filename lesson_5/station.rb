@@ -14,7 +14,7 @@ class Station
     register_instance
   end
 
-  def add_train(train)
+  def arrive_train(train)
     self.trains << train
   end
 
@@ -22,7 +22,7 @@ class Station
     self.trains.delete(train)
   end
 
-  def train_types(type)
+  def trains_by_type(type)
     trains.select { |train| train.type == type }
   end
 end
