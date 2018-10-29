@@ -2,7 +2,7 @@ class Train
   include Manufacturer
   include InstanceCounter
   @@all_trains = {}
-  TRAIN_NUMBER_FORMAT = /\w{3}-?\w{2}/
+  TRAIN_NUMBER_FORMAT = /^\w{3}-?\w{2}$/
 
   def self.all
     @@all_trains

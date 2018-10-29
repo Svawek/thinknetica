@@ -1,6 +1,6 @@
 class Station
   include InstanceCounter
-  STATION_NAME_FORMAT = /[a-zа-я]+.*/i
+  STATION_NAME_FORMAT = /^[a-zа-я]+.*$/i
 
   attr_reader :trains, :name
   @@all_stations = []
