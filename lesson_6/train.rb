@@ -115,8 +115,7 @@ class Train
   attr_writer :current_speed, :route, :station_index
 
   def validate!
-    raise "Номер поезда не может быть nil" if self.number.nil?
-    raise "Номер поезда должен быть не менее 5 символов" if self.number.length < 5
     raise "Неверный формат номера поезда" if self.number !~ TRAIN_NUMBER_FORMAT
+    raise "Неверный тип поезда" if self.type == :cargo || self.type == :passenger
   end
 end

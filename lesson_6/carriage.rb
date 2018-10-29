@@ -17,7 +17,6 @@ class Carriage
 
     private
     def validate!
-      raise "Номер вагона не может быть nil" if self.number.nil?
       raise "Неверный формат номера вагона" if self.number !~ CARRIAGE_NUMBER_FORMAT
     end
   end
