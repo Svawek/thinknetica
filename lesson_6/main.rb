@@ -226,6 +226,9 @@ class Interface
     st2_index = gets.chomp.to_i
     self.routes << Route.new(stations[st1_index], stations[st2_index])
     puts "Вы создали маршрут #{routes[-1].stations.first.name} - #{routes[-1].stations.last.name}"
+  rescue RuntimeError => e
+    puts e.message
+    retry
   end
 end
 
