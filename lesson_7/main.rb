@@ -112,6 +112,8 @@ class Interface
     puts "Нажмите 4 отправки поезда к следующей станции"
     puts "Нажмите 5 возврата поезда к предыдущей станции"
     puts "Нажмите 6, что бы показать все вагоны поезда"
+    puts "Нажмите 7, что бы посадить пассажира в вагона"
+    puts "Нажмите 8, что бы добавить груз в вагон"
 
     answer = gets.chomp
 
@@ -140,6 +142,12 @@ class Interface
       trains[i].drive_back
     when "6"
       trains[i].carriages_list
+    when "7"
+      trains[i].carriages.each { |carriage|
+        puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{trains[i].carriages.index(carriage)}"
+      }
+    when "8"
+
     else
       puts "Выбирите корректный пункт из меню"
     end
@@ -184,7 +192,8 @@ class Interface
     }
     i = gets.chomp.to_i
     puts "На станции стоят следующие поезда:"
-    stations[i].trains.each { |train| puts train.number}
+    # stations[i].trains.each { |train| puts train.number}
+    stations[i].train_list
   end
 
   private

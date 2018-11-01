@@ -1,5 +1,5 @@
 class CargoCarriage < Carriage
-  attr_reader :type, :size
+  attr_reader :type, :size, :goods
   def initialize(size)
     super
     @type = :cargo
@@ -24,7 +24,7 @@ class CargoCarriage < Carriage
   end
 
   private
-  attr_writer :size
+  attr_writer :size, :goods
 
   def validate!
     raise "Не корректно задан объем или указан 0" if self.size.to_f.zero?
