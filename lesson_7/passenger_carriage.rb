@@ -1,5 +1,5 @@
 class PassengerCarriage < Carriage
-  attr_reader :type, :seats
+  attr_reader :type, :seats, :passengers
   def initialize(seats)
     super
     @type = :passenger
@@ -9,7 +9,7 @@ class PassengerCarriage < Carriage
   end
 
   def add_passenger
-    self.passengers += 1 ? self.passenger < self.seats : error_free_seats
+    self.passengers < self.seats ? self.passengers += 1 : error_free_seats
   end
 
   def free_seats

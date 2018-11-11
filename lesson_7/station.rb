@@ -29,7 +29,7 @@ class Station
   end
 
   def trains_list
-    block = lambda { |x| x.each { |y| print y, ", "}}.call(self.trains)
+    block = lambda { |x| x.each { |y| puts y}}.call(self.trains)
   end
   
   def valid?

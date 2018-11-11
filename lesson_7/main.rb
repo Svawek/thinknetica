@@ -112,15 +112,18 @@ class Interface
     puts "Нажмите 4 отправки поезда к следующей станции"
     puts "Нажмите 5 возврата поезда к предыдущей станции"
     puts "Нажмите 6, что бы показать все вагоны поезда"
-    puts "Нажмите 7, что бы посадить пассажира в вагона"
-    puts "Нажмите 8, что бы добавить груз в вагон"
+    if trains[i].class == PassengerTrain
+      puts "Нажмите 7, что бы посадить пассажира в вагона"
+    else
+      puts "Нажмите 7, что бы добавить груз в вагон"
+    end
 
     answer = gets.chomp
 
     case answer
     when "1"
       carriages.each { |carriage| 
-        puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{carriages.index(carriage)}"
+        puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{carriages.index(carriage)}" if carriage.type == trains[i].type
       }
       carriage_i = gets.chomp.to_i
       trains[i].carriage_join(carriages[carriage_i])
@@ -143,11 +146,21 @@ class Interface
     when "6"
       trains[i].carriages_list
     when "7"
-      trains[i].carriages.each { |carriage|
-        puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{trains[i].carriages.index(carriage)}"
-      }
-    when "8"
-
+      if trains[i].class == PassengerTrain
+        trains[i].carriages.each { |carriage|
+          puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{trains[i].carriages.index(carriage)}"
+        }
+        carriage_i = gets.chomp.to_i
+        trains[i].carriages[carriage_i].add_passenger
+      else
+        trains[i].carriages.each { |carriage|
+          puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{trains[i].carriages.index(carriage)}"
+        }
+        carriage_i = gets.chomp.to_i
+        puts "Введите количество груза, которое хотите добавить в вагон"
+        cargo_amount = gets.chomp.to_i
+        cargo_amount.zero? ? error_format : trains[i].carriages[carriage_i].add_cargo(cargo_amount)
+      end
     else
       puts "Выбирите корректный пункт из меню"
     end
@@ -194,6 +207,10 @@ class Interface
     puts "На станции стоят следующие поезда:"
     # stations[i].trains.each { |train| puts train.number}
     stations[i].train_list
+  end
+
+  def error_format
+    puts "Неверный формат или указан 0"
   end
 
   private

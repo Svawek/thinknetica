@@ -16,7 +16,7 @@ class CargoCarriage < Carriage
   end
 
   def add_cargo(cargo)
-    self.goods += cargo ? (self.goods + cargo) < self.size : error_free_size
+    (self.goods + cargo) < self.size ? self.goods += cargo : error_free_size
   end
 
   def error_free_size

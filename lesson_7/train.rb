@@ -83,12 +83,8 @@ class Train
     route.stations[station_index + 1]
   end
 
-  def block_carriages
-    Proc.new { |x| x.each { |y| print y.number, ", "}}
-  end
-
   def carriages_list
-    block = lambda { |x| x.each { |y| print y.number, ", "}}.call(self.carriages)
+    block = lambda { |x| x.each { |y| puts y}}.call(self.carriages)
   end
 
   def valid?
