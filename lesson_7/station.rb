@@ -28,8 +28,8 @@ class Station
     trains.select { |train| train.type == type }
   end
 
-  def trains_list
-    block = lambda { |x| x.each { |y| puts y}}.call(self.trains)
+  def trains_list(&block)
+    self.trains.each { |train| block.call(train) }
   end
   
   def valid?

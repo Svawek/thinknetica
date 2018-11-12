@@ -123,7 +123,9 @@ class Interface
     case answer
     when "1"
       carriages.each { |carriage| 
-        puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{carriages.index(carriage)}" if carriage.type == trains[i].type
+        if carriage.type == trains[i].type
+          puts "Что бы выбрать вагон №#{carriage.number}, нажмите #{carriages.index(carriage)}" unless trains[i].carriages.include?(carriage)
+        end
       }
       carriage_i = gets.chomp.to_i
       trains[i].carriage_join(carriages[carriage_i])
@@ -144,7 +146,14 @@ class Interface
     when "5"
       trains[i].drive_back
     when "6"
-      trains[i].carriages_list
+      trains[i].carriages_list do |carriage|
+        case carriage.type
+        when :passenger
+          puts "Номер вагона: #{carriage.number}. Количество занятых мест: #{carriage.passengers}; Количество свободных мест: #{carriage.seats - carriage.passengers}"
+        when :cargo
+          puts "Номер вагона: #{carriage.number};  Занятый объём: #{carriage.goods}; Свободный объём: #{carriage.size - carriage.goods}"
+        end
+      end
     when "7"
       if trains[i].class == PassengerTrain
         trains[i].carriages.each { |carriage|
@@ -205,8 +214,9 @@ class Interface
     }
     i = gets.chomp.to_i
     puts "На станции стоят следующие поезда:"
-    # stations[i].trains.each { |train| puts train.number}
-    stations[i].train_list
+    stations[i].trains_list do |train|
+      puts "Номер поезда: #{train.number}."
+    end
   end
 
   def error_format

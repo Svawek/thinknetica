@@ -83,8 +83,8 @@ class Train
     route.stations[station_index + 1]
   end
 
-  def carriages_list
-    block = lambda { |x| x.each { |y| puts y}}.call(self.carriages)
+  def carriages_list(&block)
+    self.carriages.each { |carriage| block.call(carriage) }
   end
 
   def valid?
