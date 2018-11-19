@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 # Class create Station. View information about staion(trains)
->>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
 class Station
   include InstanceCounter
   STATION_NAME_FORMAT = /[a-zа-я]+.*/i.freeze
@@ -47,12 +44,8 @@ class Station
 
   def validate!
     raise 'Название станции не может быть nil' if name.nil?
-<<<<<<< HEAD
-    raise 'Название станции должно содержать как минимум 1 букву' if name !~ STATION_NAME_FORMAT
-=======
     if name !~ STATION_NAME_FORMAT
       raise 'Название станции должно содержать как минимум 1 букву'
     end
->>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
   end
 end

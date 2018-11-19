@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 # Class creatr cargo carriage. 
 # Class can add cargo to carriage
->>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
 class CargoCarriage < Carriage
   attr_reader :type, :size, :goods
   def initialize(size)

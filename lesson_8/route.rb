@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 # Class make route for railway
-=======
->>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
 class Route
   include InstanceCounter
 
