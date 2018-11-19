@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+# Class create and manage train
+>>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
 class Train
   include Manufacturer
   include InstanceCounter
@@ -28,7 +32,15 @@ class Train
   end
 
   def braking(speed_down)
+<<<<<<< HEAD
     self.current_speed - speed_down < 0 ? self.current_speed = 0 : self.current_speed -= speed_down
+=======
+    if self.current_speed - speed_down < 0 
+      self.current_speed = 0 
+    else
+      self.current_speed -= speed_down
+    end
+>>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
   end
 
   def carriage_join(carriage)
@@ -51,7 +63,11 @@ class Train
     end
   end
 
+<<<<<<< HEAD
   def set_route(route)
+=======
+  def assign_route(route)
+>>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
     self.route = route
     self.route.stations[0].arrive_train(self)
   end
@@ -66,7 +82,11 @@ class Train
 
   def drive_back
     current_station.send_train(self)
+<<<<<<< HEAD
     return error_first_station if station_index == 0
+=======
+    return error_first_station if station_index.zero?
+>>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
 
     self.station_index -= 1
     current_station.arrive_train(self)
@@ -77,7 +97,11 @@ class Train
   end
 
   def previous_station
+<<<<<<< HEAD
     return error_first_station if station_index == 0
+=======
+    return error_first_station if station_index.zero?
+>>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
 
     route.stations[station_index - 1]
   end
@@ -121,7 +145,11 @@ class Train
 
   protected
 
+<<<<<<< HEAD
   # защищаем от изменения параметров на прямую. класс наследуется
+=======
+  # protect against changing parameters on the line. class is inherited
+>>>>>>> 4308b297e531d738d7c11bbbfca6a8381f81ff3c
   attr_writer :current_speed, :route, :station_index
 
   def validate!
