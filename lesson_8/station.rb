@@ -45,6 +45,8 @@ class Station
 
   def validate!
     raise 'Название станции не может быть nil' if name.nil?
-    raise 'Название станции должно содержать как минимум 1 букву' if name !~ STATION_NAME_FORMAT
+    if name !~ STATION_NAME_FORMAT
+      raise 'Название станции должно содержать как минимум 1 букву'
+    end
   end
 end

@@ -37,9 +37,11 @@ module TrainMenu
     case answer
     when '1'
       carriages.each do |carriage|
-        if carriage.type == trains[i].type
+        next unless carriage.type == trains[i].type
+
+        unless trains[i].carriages.include?(carriage)
           puts "Что бы выбрать вагон №#{carriage.number}, нажмите " \
-                "#{carriages.index(carriage)}" unless trains[i].carriages.include?(carriage)
+                "#{carriages.index(carriage)}"
         end
       end
       carriage_i = gets.chomp.to_i

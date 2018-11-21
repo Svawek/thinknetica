@@ -1,9 +1,7 @@
 # The class is created as the basis for the creation of carriages
 class Carriage
   include Manufacturer
-  def self.init
-    @@init = 0
-  end
+  @@init = 0
 
   attr_reader :number
   def initialize(_num)
