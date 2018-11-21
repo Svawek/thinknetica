@@ -2,8 +2,8 @@
 class Train
   include Manufacturer
   include InstanceCounter
-  @@all_trains = {}
   TRAIN_NUMBER_FORMAT = /\w{3}-?\w{2}/.freeze
+  @@all_trains = {}
 
   def self.all
     @@all_trains
@@ -29,8 +29,8 @@ class Train
   end
 
   def braking(speed_down)
-    if self.current_speed - speed_down < 0 
-      self.current_speed = 0 
+    if self.current_speed - speed_down < 0
+      self.current_speed = 0
     else
       self.current_speed -= speed_down
     end

@@ -40,33 +40,29 @@ class Interface
       puts 'Нажмите 7 для управления маршрутом'
       puts 'Нажмите 0 для выхода'
 
-      answer = gets.chomp.to_i
-      
+      answer = gets.chomp
+
       case answer
-      when "1" then create_station
-      when "2" then station_information
-      when "3" then create_train
-      when "4" then create_carriage
-      when "5" then manage_train
-      when "6" then create_route
-      when "7" then manage_route
-      when "0" then break
+      when '1' then create_station
+      when '2' then station_information
+      when '3' then create_train
+      when '4' then create_carriage
+      when '5' then manage_train
+      when '6' then create_route
+      when '7' then manage_route
+      when '0' then break
       else
-        puts "Выбирите правильный пункт меню"
+        puts 'Выбирите правильный пункт меню'
       end
-
     end
-  end
-
-  def error_format
-    puts 'Неверный формат или указан 0'
   end
 
   private
 
-  # private выбран, что уберечь основные методы создания от умышленного изменения. И данный класс не наследуется
+  # private is selected to protect the basic creation methods
+  # from intentional modification.
+  # And this class is not inherited.
   attr_writer :stations, :trains, :carriages, :routes
-    
 end
 
 menu = Interface.new

@@ -1,3 +1,4 @@
+# Module for manage station in menu
 module StationMenu
   def create_station
     puts 'Введите название станции'
@@ -8,10 +9,11 @@ module StationMenu
     puts e.message
     retry
   end
-  
+
   def station_information
     stations.each do |station|
-      puts "Нажмите #{stations.index(station)}, что бы посмотреть информацию по станции #{station.name}"
+      puts "Нажмите #{stations.index(station)}, что бы посмотреть "\
+            "информацию по станции #{station.name}"
     end
     i = gets.chomp.to_i
     puts 'На станции стоят следующие поезда:'

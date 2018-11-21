@@ -1,4 +1,4 @@
-# Class creatr passenger carriage. 
+# Class creatr passenger carriage.
 # Class can add passenger and dispaly free seats
 class PassengerCarriage < Carriage
   attr_reader :type, :seats, :passengers
@@ -37,13 +37,15 @@ class PassengerCarriage < Carriage
     false
   end
 
+  def validate_err
+    puts 'Не корректно задано количество мест или указано 0 мест'
+  end
+
   private
 
   attr_writer :seats, :passengers
 
   def validate!
-    if seats.to_i.zero?
-      raise 'Не корректно задано количество мест или указано 0 мест'
-    end
+    raise validate_err if seats.to_i.zero?
   end
 end

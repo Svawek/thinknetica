@@ -1,3 +1,4 @@
+# Module for manage carriage in menu
 module CarriageMenu
   def create_carriage
     puts 'Нажмите 1 для создания пассажирского вагона'
@@ -12,7 +13,7 @@ module CarriageMenu
     end
   end
 
-  private 
+  private
 
   def create_carriage!(type)
     if type == 'PassengerCarriage'

@@ -1,3 +1,4 @@
+# Module for manage route in menu
 module RouteMenu
   def create_route
     create_route!
@@ -5,7 +6,8 @@ module RouteMenu
 
   def manage_route
     routes.each do |route|
-      puts "Что бы выбрать маршрут #{route.stations.first.name} - #{route.stations.last.name}, нажмите #{routes.index(route)}"
+      puts "Что бы выбрать маршрут #{route.stations.first.name} - " \
+            "#{route.stations.last.name}, нажмите #{routes.index(route)}"
     end
     i = gets.chomp.to_i
 
@@ -21,13 +23,15 @@ module RouteMenu
       routes[i].stations.each { |station| puts station.name }
     when '2'
       stations.each do |station|
-        puts "Нажмите #{stations.index(station)}, что бы добавить станцию #{station.name} в маршрут"
+        puts "Нажмите #{stations.index(station)}, что бы добавить станцию " \
+              "#{station.name} в маршрут"
       end
       station_i = gets.chomp.to_i
       routes[i].add_station(stations[station_i])
     when '3'
       stations.each do |station|
-        puts "Нажмите #{stations.index(station)}, что бы удалить станцию #{station.name} в маршрут"
+        puts "Нажмите #{stations.index(station)}, что бы удалить станцию " \
+              "#{station.name} в маршрут"
       end
       station_i = gets.chomp.to_i
       routes[i].remove_station(stations[station_i])
@@ -40,14 +44,17 @@ module RouteMenu
 
   def create_route!
     stations.each do |station|
-      puts "Что бы выбрать станцию '#{station.name}' для начала маршрута, нажмите #{stations.index(station)}"
+      puts "Что бы выбрать станцию '#{station.name}' для начала маршрута, " \
+            "нажмите #{stations.index(station)}"
     end
     st1_index = gets.chomp.to_i
     stations.each do |station|
-      puts "Что бы выбрать станцию '#{station.name}' для конца маршрута, нажмите #{stations.index(station)}"
+      puts "Что бы выбрать станцию '#{station.name}' для конца маршрута, " \
+            "нажмите #{stations.index(station)}"
     end
     st2_index = gets.chomp.to_i
     routes << Route.new(stations[st1_index], stations[st2_index])
-    puts "Вы создали маршрут #{routes[-1].stations.first.name} - #{routes[-1].stations.last.name}"
+    puts "Вы создали маршрут #{routes[-1].stations.first.name} - " \
+          "#{routes[-1].stations.last.name}"
   end
 end

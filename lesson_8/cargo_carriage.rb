@@ -1,4 +1,4 @@
-# Class creatr cargo carriage. 
+# Class creatr cargo carriage.
 # Class can add cargo to carriage
 class CargoCarriage < Carriage
   attr_reader :type, :size, :goods

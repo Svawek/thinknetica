@@ -3,12 +3,13 @@ class Station
   include InstanceCounter
   STATION_NAME_FORMAT = /[a-zа-я]+.*/i.freeze
 
-  attr_reader :trains, :name
   @@all_stations = []
+
   def self.all
     @@all_stations
   end
 
+  attr_reader :trains, :name
   def initialize(name)
     @name = name
     @trains = []
@@ -44,8 +45,6 @@ class Station
 
   def validate!
     raise 'Название станции не может быть nil' if name.nil?
-    if name !~ STATION_NAME_FORMAT
-      raise 'Название станции должно содержать как минимум 1 букву'
-    end
+    raise 'Название станции должно содержать как минимум 1 букву' if name !~ STATION_NAME_FORMAT
   end
 end

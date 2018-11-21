@@ -10,7 +10,7 @@ module InstanceCounter
     attr_accessor :instances
   end
 
-  #Instance methods
+  # Instance methods
   module InstanceMethods
     private
 
