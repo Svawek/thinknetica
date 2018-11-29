@@ -1,6 +1,7 @@
 require_relative 'instance_counter.rb'
 require_relative 'manufacturer.rb'
 require_relative 'accessors'
+require_relative 'validation'
 require_relative 'station'
 require_relative 'route'
 require_relative 'train'
