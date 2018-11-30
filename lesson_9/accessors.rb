@@ -10,13 +10,11 @@ module Accessors
       args.each do |arg|
         var_name = "@#{arg}".to_sym
         history_name = "@history_#{arg}".to_sym
-
         define_method(arg) { instance_variable_get(var_name) }
-        define_method(history_name) { instance_variable_get(history_name) }
         define_method("#{arg}=".to_sym) do |value| 
           instance_variable_set(var_name, value) 
-          instance_variable_get(history_name) << value
-          #instance_variable_get("@#{arg}_change_history".to_sym) << value  
+          instance_variable_set(history_name, []) unless instance_variable_get(history_name)
+          instance_variable_get(history_name).push(value)
         end
         define_method("#{arg}_history") { instance_variable_get(history_name) }
       end
