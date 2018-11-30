@@ -2,6 +2,8 @@
 class Train
   include Manufacturer
   include InstanceCounter
+  include Validation
+  include Accessors
   TRAIN_NUMBER_FORMAT = /\w{3}-?\w{2}/.freeze
   @@all_trains = {}
 
@@ -13,7 +15,11 @@ class Train
     @@all_trains[number]
   end
 
-  attr_reader :number, :current_speed, :route, :station_index, :carriages
+  validate :number, :presence
+  validate :number, :format, TRAIN_NUMBER_FORMAT
+
+  attr_reader :number, :current_speed, :station_index, :carriages
+  attr_accessor_with_history :route
   def initialize(number)
     @number = number
     @current_speed = 0
@@ -97,13 +103,6 @@ class Train
     carriages.each { |carriage| yield(carriage) }
   end
 
-  def valid?
-    validate!
-    true
-  rescue StandardError
-    false
-  end
-
   def error_stop_train
     puts 'Поезд движется. Остановите сначало поезд!'
   end
@@ -129,9 +128,4 @@ class Train
   # protect against changing parameters on the line. class is inherited
   attr_writer :current_speed, :route, :station_index
 
-  def validate!
-    raise 'Номер поезда не может быть nil' if number.nil?
-    raise 'Номер поезда должен быть не менее 5 символов' if number.length < 5
-    raise 'Неверный формат номера поезда' if number !~ TRAIN_NUMBER_FORMAT
-  end
 end

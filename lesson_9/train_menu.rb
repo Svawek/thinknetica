@@ -59,7 +59,8 @@ module TrainMenu
               "#{route.stations.last.name}, нажмите #{routes.index(route)}"
       end
       route_i = gets.chomp.to_i
-      trains[i].set_route(routes[route_i])
+      trains[i].assign_route(routes[route_i])
+      byebug
     when '4' then trains[i].drive_forward
     when '5' then trains[i].drive_back
     when '6'

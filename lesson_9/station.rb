@@ -1,7 +1,9 @@
 # Class create Station. View information about staion(trains)
 class Station
   include InstanceCounter
+  include Validation
   STATION_NAME_FORMAT = /[a-zа-я]+.*/i.freeze
+  validate :name, :format, STATION_NAME_FORMAT
 
   @@all_stations = []
 
@@ -32,21 +34,5 @@ class Station
 
   def trains_list
     trains.each { |train| yield(train) }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue StandardError
-    false
-  end
-
-  protected
-
-  def validate!
-    raise 'Название станции не может быть nil' if name.nil?
-    if name !~ STATION_NAME_FORMAT
-      raise 'Название станции должно содержать как минимум 1 букву'
-    end
   end
 end
