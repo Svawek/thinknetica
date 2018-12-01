@@ -126,6 +126,5 @@ class Train
   protected
 
   # protect against changing parameters on the line. class is inherited
-  attr_writer :current_speed, :route, :station_index
-
+  attr_writer :current_speed, :station_index
 end

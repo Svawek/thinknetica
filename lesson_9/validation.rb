@@ -5,16 +5,18 @@ module Validation
     base.send :include, InstanceMethods
   end
 
+  # Module add validate array
   module ClassMethods
     attr_reader :validations
 
     def validate(attr_name, type, *extra_option)
       @validations ||= []
-      val_current = {name: attr_name, type: type, attr: extra_option[0]}
+      val_current = { name: attr_name, type: type, attr: extra_option[0] }
       @validations.push(val_current)
     end
   end
 
+  # Module describe validation
   module InstanceMethods
     def validate!
       self.class.validations.each do |validation|
@@ -32,8 +34,10 @@ module Validation
 
     private
 
-    def val_presence(attr_name, *args)
-      raise "Отсутвует значение в #{attr_name}" if attr_name.empty? || attr_name.nil?
+    def val_presence(attr_name, *_args)
+      if attr_name.empty? || attr_name.nil?
+        raise "Отсутвует значение в #{attr_name}"
+      end
     end
 
     def val_format(attr_name, *args)

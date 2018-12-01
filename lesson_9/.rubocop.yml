@@ -1,20 +1,17 @@
 Metrics/ModuleLength:
-  Enabled: false
+  Max: 115
 
 Metrics/AbcSize:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Enabled: false
+  Max: 17
 
 Metrics/PerceivedComplexity:
-  Enabled: false
+  Max: 15
 
 Metrics/MethodLength:
-  Enabled: false
-
-Metrics/ClassLength:
-  Enabled: false
+  Max: 85
 
 Style/IdenticalConditionalBranches:
   Enabled: false

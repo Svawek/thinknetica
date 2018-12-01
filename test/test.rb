@@ -63,7 +63,7 @@ class Train
   protected
 
   # protect against changing parameters on the line. is inherited
-  attr_writer :current_speed, :route, :station_index
+  attr_writer :current_speed, :station_index
 
 end
 
@@ -124,4 +124,4 @@ station2 = Station.new("B")
 route1 = Route.new(station1, station2)
 train1 = Train.new("12345")
 train1.assign_route(route1)
-train1.route_history
+  train1.route_history
